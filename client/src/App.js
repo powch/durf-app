@@ -1,12 +1,17 @@
+// External imports
 import React, { useReducer } from "react";
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import { Auth0Provider } from "@auth0/auth0-react";
 
+// Internal imports
 import { theme } from "./theme";
 import { initialState, reducer } from "./App.reducer";
-import { authDomain, authClientId, managementDomain } from "./constants";
+import { authDomain, authClientId } from "./constants";
 import LoginScreen from "./views/LoginScreen/LoginScreen";
 import CharacterList from "./views/CharacterList/CharacterList";
+
+// REST imports
+import GetCharacter from "./rest/GetCharacters";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -76,22 +81,36 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentPage } = state;
 
+  const loading = currentPage.includes("loading");
+
   return (
     <Auth0Provider
       domain={authDomain}
       clientId={authClientId}
       redirectUri={window.location.origin}
-      audience={managementDomain}
-      scope={'read:users'}
     >
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <AppContainer id="app-container">
-          {currentPage === "loginPage" ? (
+          {loading ? (
+            <div>
+              <h1>LOADING</h1>
+            </div>
+          ) : null}
+          {!loading && currentPage.includes("loginPage") ? (
             <LoginScreen appState={{ state, dispatch }} />
           ) : null}
-          {currentPage === "characterListPage" ? (
+          {!loading && currentPage.includes("characterListPage") ? (
             <CharacterList appState={{ state, dispatch }} />
+          ) : null}
+          {currentPage.includes("characterListPage.loading") ? (
+            <GetCharacter
+              state={state}
+              onData={(payload) =>
+                dispatch({ action: "SEED_CHARACTER_DATA", payload })
+              }
+              onError={(err) => console.log(err)}
+            />
           ) : null}
         </AppContainer>
       </ThemeProvider>
