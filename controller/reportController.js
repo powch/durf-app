@@ -3,7 +3,7 @@ const db = require('../models');
 module.exports = {
 
   create: (req, res) => {
-    db.Report.create( req.body )
+    db.Character.create( req.body )
       .then(newReport => {
         return db.User.findOneAndUpdate(
           { fbId: req.params.id },
@@ -16,7 +16,7 @@ module.exports = {
   },
 
   findAll: (req, res) => {
-    db.Report.find({}).sort({date: -1})
+    db.Character.find({}).sort({date: -1})
       .then(reports => res.json(reports))
       .catch(err => res.status(422).json(err))
   }

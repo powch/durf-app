@@ -8,7 +8,14 @@ import { theme } from "./theme";
 import { initialState, reducer } from "./App.reducer";
 import { authDomain, authClientId } from "./constants";
 import LoginScreen from "./views/LoginScreen/LoginScreen";
-import CharacterList from "./views/CharacterList/CharacterList";
+import CharacterAssembly from "./views/CharacterAssembly/CharacterAssembly";
+import CharacterCreator from "./views/CharacterCreator/CharactorCreator";
+import {
+  PAGE_LOGIN,
+  PAGE_CHARACTER_LIST,
+  PAGE_CREATE_CHARACTER,
+  PAGE_CHARACTER_LIST_LOADING,
+} from "./constants";
 
 // REST imports
 import GetCharacter from "./rest/GetCharacters";
@@ -75,6 +82,7 @@ const AppContainer = styled.div({
   flexDirection: "column",
   overflow: "hidden",
   minHeight: "100vh",
+  backgroundColor: "#F5F5F5",
 });
 
 const App = () => {
@@ -92,18 +100,24 @@ const App = () => {
       <GlobalStyles />
       <ThemeProvider theme={theme}>
         <AppContainer id="app-container">
+          {/* Loading screen */}
           {loading ? (
             <div>
               <h1>LOADING</h1>
             </div>
           ) : null}
-          {!loading && currentPage.includes("loginPage") ? (
+          {/* Feature views */}
+          {!loading && currentPage.includes(PAGE_LOGIN) ? (
             <LoginScreen appState={{ state, dispatch }} />
           ) : null}
-          {!loading && currentPage.includes("characterListPage") ? (
-            <CharacterList appState={{ state, dispatch }} />
+          {!loading && currentPage.includes(PAGE_CHARACTER_LIST) ? (
+            <CharacterAssembly appState={{ state, dispatch }} />
           ) : null}
-          {currentPage.includes("characterListPage.loading") ? (
+          {!loading && currentPage.includes(PAGE_CREATE_CHARACTER) ? (
+            <CharacterCreator appState={{ state, dispatch }} />
+          ) : null}
+          {/* REST calls */}
+          {currentPage.includes(PAGE_CHARACTER_LIST_LOADING) ? (
             <GetCharacter
               state={state}
               onData={(payload) =>

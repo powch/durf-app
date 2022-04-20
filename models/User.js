@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: 'User id is required'
   },
-  character: [{
+  characters: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Character'
   }]

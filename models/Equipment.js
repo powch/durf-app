@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const EquipmentSchema = new mongoose.Schema({
     id: {
-        type: Number
+        type: Number,
+        unique: true
     },
     name: {
         type: String

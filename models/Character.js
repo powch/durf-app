@@ -7,15 +7,15 @@ const CharacterSchema = new mongoose.Schema({
   },
   core_stats: {
     STR: {
-      type: String,
+      type: Number,
       required: "core_stats.STR is required",
     },
     DEX: {
-      type: String,
+      type: Number,
       required: "core_stats.DEX is required",
     },
     WIL: {
-      type: String,
+      type: Number,
       required: "core_stats.WIL is required",
     },
   },

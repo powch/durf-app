@@ -12,6 +12,7 @@ module.exports = {
   findOne: (req, res) => {
     db.User.findOneAndUpdate({ id: req.params.id }, req.body, {
       upsert: true,
+      rawResult: true
     })
       .then((userInfo) => res.json(userInfo))
       .catch((err) => res.status(422).json(err));
