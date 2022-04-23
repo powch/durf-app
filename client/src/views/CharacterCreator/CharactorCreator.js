@@ -22,7 +22,7 @@ const FormContainer = styled.div({
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  marginTop: "2rem",
+  marginTop: "3rem",
 });
 
 const CharacterCreator = ({ appState }) => {
@@ -56,7 +56,10 @@ const CharacterCreator = ({ appState }) => {
             label={"Name"}
             handleChange={handleChange}
           />
-          {/* <SpecializationRadio stats={[...core_stats]} /> */}
+          <SpecializationRadio
+            stats={Object.entries(core_stats)}
+            handleChange={handleChange}
+          />
         </FormContainer>
       </Container>
     </FullscreenModal>

@@ -6,14 +6,18 @@ const InputContainer = styled.div({
   flexDirection: "column",
 });
 
-const StyledInput = styled.input({
-    border: '0.063rem grey solid',
-    borderRadius: '0.25rem'
-})
+const StyledInput = styled.input(({ theme }) => ({
+    ...theme.roundedCorners,
+    border: "0.063rem grey solid",
+  }));
+
+const StyledLabel = styled.label(({ theme }) => ({
+  ...theme.label,
+}));
 
 const Input = ({ label, value, name, handleChange }) => (
   <InputContainer>
-    <label for={name}>{label}</label>
+    <StyledLabel for={name}>{label}</StyledLabel>
     <StyledInput
       name={name}
       value={value}

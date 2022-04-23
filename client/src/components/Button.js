@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledButton = styled.button(({ theme, size, css }) => ({
+  ...theme.roundedCorners,
   border: 0,
-  borderRadius: ".25rem",
   backgroundColor: theme.primary,
   color: theme.fontColor,
   ...(size === "large"

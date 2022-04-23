@@ -50,7 +50,7 @@ export const reducer = (state, data) => {
     return {
       ...state,
       currentPage: PAGE_CREATE_CHARACTER,
-      newCharacter: newCharacterTemplate,
+      newCharacter: newCharacterTemplate(),
     };
   }
 
@@ -58,7 +58,7 @@ export const reducer = (state, data) => {
     const { property, value } = payload;
     const updatedCharacter = set(state.newCharacter, property, value);
 
-    console.log("fired: ", updatedCharacter);
+    console.log("fired: ", payload);
 
     return {
       ...state,

@@ -23,9 +23,9 @@ const Header = styled.h3(({ theme }) => ({
 }));
 
 const ListContainer = styled.div(({ theme }) => ({
+  ...theme.roundedCorners,
   minHeight: "10rem",
   border: `0.063rem ${theme.primaryDarker} solid`,
-  borderRadius: "0.25rem",
 }));
 
 const CharacterList = () => {
