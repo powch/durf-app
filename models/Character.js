@@ -42,7 +42,7 @@ const CharacterSchema = new mongoose.Schema({
   xp_value: {
     type: Number,
     required: "xp_value is required",
-    default: 0
+    default: 0,
   },
   inventory: {
     stress: {

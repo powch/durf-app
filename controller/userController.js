@@ -9,12 +9,12 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
-  findOne: (req, res) => {
-    db.User.findOneAndUpdate({ id: req.params.id }, req.body, {
+  findOne: async (req, res) => {
+    await db.User.findOneAndUpdate({ id: req.params.id }, req.body, {
       upsert: true,
-      rawResult: true
     })
-      .then((userInfo) => res.json(userInfo))
+      .populate("characters")
+      .then((populatedUser) => res.json(populatedUser))
       .catch((err) => res.status(422).json(err));
   },
 };

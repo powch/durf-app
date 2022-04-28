@@ -25,6 +25,6 @@ const EquipmentSchema = new mongoose.Schema({
     }
 });
 
-const Equipment = mongoose.model("Equipment", EquipmentSchema);
+const Equipment = mongoose.model('Equipment', EquipmentSchema)
 
 module.exports = Equipment;

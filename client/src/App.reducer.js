@@ -5,6 +5,7 @@ import {
   PAGE_CHARACTER_LIST_LOADING,
   PAGE_LOGIN,
   PAGE_CREATE_CHARACTER,
+  PAGE_CHARACTER,
   newCharacterTemplate,
 } from "./constants";
 
@@ -35,14 +36,12 @@ export const reducer = (state, data) => {
   }
 
   if (action.includes("SEED_CHARACTER_DATA")) {
-    const isNewUser = !payload?.lastErrorObject?.updatedExisting;
+    const isNewUser = !payload;
 
     return {
       ...state,
       currentPage: PAGE_CHARACTER_LIST,
-      ...(!isNewUser
-        ? { characters: payload.value.characters }
-        : { characters: [] }),
+      ...(!isNewUser ? { characters: payload.characters } : { characters: [] }),
     };
   }
 
@@ -58,13 +57,37 @@ export const reducer = (state, data) => {
     const { property, value } = payload;
     const updatedCharacter = set(state.newCharacter, property, value);
 
-    console.log("fired: ", payload);
-
     return {
       ...state,
       newCharacter: updatedCharacter,
     };
   }
+
+  if (action.includes("NEW_CHARACTER_SAVED")) {
+    const { newCharacter, ...cleanedState } = state;
+    console.log(payload);
+    return {
+      ...cleanedState,
+      // CHANGE THIS TO ACTIVE PAGE WHEN BUILT
+      currentPage: PAGE_CHARACTER_LIST,
+      characters: [payload, ...state.characters],
+      activeCharacter: payload,
+    };
+  }
+
+  if (action.includes("LOAD_CHARACTER")) {
+    console.log("payload: ", payload);
+    const chosenCharacter = state.characters.find(
+      (character) => character._id === payload.characterId
+    );
+
+    return {
+      ...state,
+      activeCharacter: chosenCharacter,
+    };
+  }
+
+  // ADD AN ERROR STATE, YOU TROGLODYTE
 
   return state;
 };

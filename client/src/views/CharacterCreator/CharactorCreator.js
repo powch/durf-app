@@ -1,10 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-import { PAGE_CHARACTER_LIST } from "../../constants";
+import {
+  PAGE_CHARACTER_LIST,
+  PAGE_CREATE_CHARACTER_LOADING,
+} from "../../constants";
 import FullscreenModal from "../../components/FullscreenModal";
 import Input from "../../components/Input";
 import SpecializationRadio from "./components/SpecializationRadio";
+import Button from "../../components/Button";
 
 const Container = styled.div({
   display: "flex",
@@ -45,6 +49,12 @@ const CharacterCreator = ({ appState }) => {
       },
     });
 
+  const handleCreate = () =>
+    dispatch({
+      action: "CHANGE_PAGE",
+      payload: { page: PAGE_CREATE_CHARACTER_LOADING },
+    });
+
   return (
     <FullscreenModal handleClose={handleClose}>
       <Container>
@@ -61,6 +71,13 @@ const CharacterCreator = ({ appState }) => {
             handleChange={handleChange}
           />
         </FormContainer>
+        <Button
+          size={"large"}
+          handleClick={handleCreate}
+          css={{ borderRadius: 0, position: "fixed", bottom: 0 }}
+        >
+          {"Create character"}
+        </Button>
       </Container>
     </FullscreenModal>
   );

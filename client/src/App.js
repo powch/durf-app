@@ -15,10 +15,12 @@ import {
   PAGE_CHARACTER_LIST,
   PAGE_CREATE_CHARACTER,
   PAGE_CHARACTER_LIST_LOADING,
+  PAGE_CREATE_CHARACTER_LOADING,
 } from "./constants";
 
 // REST imports
 import GetCharacter from "./rest/GetCharacters";
+import CreateCharacter from "./rest/CreateCharacter";
 
 const GlobalStyles = createGlobalStyle`
   * {
@@ -89,6 +91,8 @@ const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { currentPage } = state;
 
+  console.log('currentPage: ', currentPage);
+
   const loading = currentPage.includes("loading");
 
   return (
@@ -122,6 +126,15 @@ const App = () => {
               state={state}
               onData={(payload) =>
                 dispatch({ action: "SEED_CHARACTER_DATA", payload })
+              }
+              onError={(err) => console.log(err)}
+            />
+          ) : null}
+          {currentPage.includes(PAGE_CREATE_CHARACTER_LOADING) ? (
+            <CreateCharacter
+              state={state}
+              onData={(payload) =>
+                dispatch({ action: "NEW_CHARACTER_SAVED", payload })
               }
               onError={(err) => console.log(err)}
             />

@@ -12,6 +12,6 @@ const SpellSchema = new mongoose.Schema({
     }
 });
 
-const Spell = mongoose.model("Spell", SpellSchema);
+const Spell = mongoose.model('Spell', SpellSchema);
 
 module.exports = Spell;

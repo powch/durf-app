@@ -6,9 +6,11 @@ export const authClientId = "sLq79b3S8qG1AkcVO2GXza1KgTkWqPfr";
 export const PAGE_LOGIN = "loginPage";
 export const PAGE_CHARACTER_LIST = "characterListPage";
 export const PAGE_CREATE_CHARACTER = "createCharacterPage";
+export const PAGE_CHARACTER = "characterPage";
 
 // Page loading states
 export const PAGE_CHARACTER_LIST_LOADING = "characterListPage.loading";
+export const PAGE_CREATE_CHARACTER_LOADING = "createCharacterPage.loading";
 
 // Other
 export const newCharacterTemplate = () => ({

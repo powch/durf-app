@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 
 import PageShell from "../../components/PageShell/PageShell";
 import CharacterList from "./components/CharacterList";
+import CharacterPage from "./components/CharacterPage/CharacterPage";
 
 const Container = styled.div({
   width: "100%",
@@ -10,14 +11,18 @@ const Container = styled.div({
   padding: "3rem 1rem",
 });
 
-const CharacterAssembly= ({ appState }) => {
+const CharacterAssembly = ({ appState }) => {
   const { state } = appState;
-  const { characters } = state;
+  const { activeCharacter } = state;
 
   return (
     <PageShell appState={appState}>
       <Container>
-        <CharacterList />
+        {!activeCharacter ? (
+          <CharacterList appState={appState} />
+        ) : (
+          <CharacterPage appState={appState} />
+        )}
       </Container>
     </PageShell>
   );
